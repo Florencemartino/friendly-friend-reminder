@@ -1,11 +1,11 @@
-import commands from "probot-commands";
+//import commands from "probot-commands";
 //const reminders = require('./lib/index')
 //import { getMessage } from './lib/index';
 
 
 module.exports = (app) => {
   app.on("pull_request.opened", async (context) => {
-    const { body } = context.user.login;
+    const { body } = context.pull_request.repository.sender
 
     // create a comment
     const pullRequestComment = context.issue({

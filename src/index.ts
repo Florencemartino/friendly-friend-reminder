@@ -1,19 +1,19 @@
 import { Application } from 'probot' // eslint-disable-line no-unused-vars
 
-// export = (app: Application) => {
-//   app.on('pull_request.opened', async (context) => {
-//     const pullRequestComment = context.issue({ body: 'Bravo pour ta première PR !' })
-//     await context.github.issues.createComment(pullRequestComment)
-//   })
-// }
+export = (app: Application) => {
+  app.on("pull_request.opened", async (context) => {
 
+    const params = context.pullRequest()
 
-export async function getMessage(app: Application) {
-  console.log(app)
-  // app.on('pull_request.opened', async (context) => {
-  //   const pullRequestComment = context.issue({ body: 'Bravo pour ta première PR !' })
-  //   await context.github.issues.createComment(pullRequestComment)
-  // })
+    const body = params.owner === 'Florencemartino' ? "Salut Florence, oui bien sûr !" : "Mmm on se connait ?"
+
+    // create a comment
+    const pullRequestComment = context.issue({
+      body: body,
+    });
+    // publish it
+    return context.github.issues.createComment(pullRequestComment);
+  });
 };
 
 
